@@ -10,6 +10,7 @@ const proxyFactory = (targetType) => createProxyMiddleware({
 
 // health:
 apiGatewayRouter.get('/ping', (req, res) => res.send("pong"));
+apiGatewayRouter.get('/health', (req, res) => res.send("<h1>Hello!</h1>"));
 
 //public routes:
 apiGatewayRouter.use('/auth', proxyFactory('AUTH_SERVICE_URL'));
