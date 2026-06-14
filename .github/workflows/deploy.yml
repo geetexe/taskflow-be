@@ -1,0 +1,22 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.TASKFLOW_VPS_HOST }}
+          username: ${{ secrets.TASKFLOW_VPS_USER }}
+          key: ${{ secrets.TASKFLOW_VPS_SSH_KEY }}
+          script: |
+            cd ~/taskflow-be
+            git pull origin main
+            docker compose up -d --build
