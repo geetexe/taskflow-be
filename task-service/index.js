@@ -2,6 +2,8 @@ require('dotenv').config();
 const morgan = require('morgan');
 const express = require('express');
 const cors = require('cors');
+const swaggerSpec = require('./src/utils/swagger.util');
+const swaggerUi = require('swagger-ui-express');
 const taskRouter = require('./src/routes/task.routes');
 
 const connectDB = require('./src/utils/connect-db.util');
@@ -17,6 +19,7 @@ const PORT = process.env.PORT || 3002;
 // ROUTES ================= [START]
 
 app.use('/tasks', taskRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ROUTES ================= [END]
 
